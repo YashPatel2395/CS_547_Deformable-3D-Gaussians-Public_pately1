@@ -1,3 +1,86 @@
+# CS 547 Final Project – Deformable 3D Gaussians
+
+## Student: Yashkumar Kamleshkumar Patel
+
+This repository is a fork of the original implementation of *Deformable 3D Gaussians for High-Fidelity Monocular Dynamic Scene Reconstruction*. This project explores the method through baseline evaluation and modified experiments.
+
+---
+
+## Experiment 1 – Baseline Evaluation
+
+The original method was executed without modification on the D-NeRF dataset (hook scene).
+
+### Setup:
+- Initial Gaussian points: 100,000
+- Training iterations: 5,000
+
+### Results:
+- Best PSNR: ~27.68
+
+### Observations:
+- At early iterations, outputs are blurry and lack structure.
+- At 5000 iterations, the model converges to a stable and accurate reconstruction.
+- The model successfully captures dynamic motion and scene geometry.
+
+---
+
+## Experiment 2 – Reduced Initialization & Extended Training
+
+This experiment modifies the model by reducing the number of initial Gaussian points and evaluating the impact on reconstruction quality.
+
+### Modification:
+- Initial Gaussian points: 100,000 → 50,000
+
+### Results:
+- 50k points, 5000 iterations → PSNR: ~27.33
+- 50k points, 10000 iterations → PSNR: ~32.11
+
+### Observations:
+- Reducing Gaussian count had minimal impact at equal iterations.
+- Increasing training iterations significantly improved reconstruction quality.
+- The extended training (10k iterations) outperformed the original baseline.
+
+---
+
+## Key Insight
+
+Training duration has a stronger impact on reconstruction quality than the initial Gaussian density in this setup.
+
+---
+
+## How to Run
+
+This project was executed using **Google Colab** instead of a local environment due to compatibility issues observed on lab machines. Specifically, mismatches between CUDA, PyTorch, and system-level dependencies caused repeated build and runtime errors for CUDA-based modules. Google Colab provides a pre-configured environment with GPU support, making it more stable and reproducible for this project.
+
+---
+
+### Google Colab Notebooks
+
+- **Experiment 1 (Baseline):**  
+  https://colab.research.google.com/drive/16i6gRN0zapSY3jFAtVw3_KepZnhh_M1m?usp=sharing  
+
+- **Experiment 2 (Modified + Extended Training):**  
+  https://colab.research.google.com/drive/1N2yBYyA0UolQ8TQ0onJVnO6b_kmMElep?usp=sharing  
+
+---
+
+### Environment (Colab)
+
+- Python: 3.12 (Colab default)
+- PyTorch: 2.x with CUDA 12.x (Colab default)
+- GPU: NVIDIA T4 (or equivalent, depending on Colab availability)
+
+---
+
+### Running Locally (Optional)
+
+To run outside Colab, follow the original repository instructions below. However, ensure compatibility between:
+- CUDA version
+- PyTorch version
+- Compiled extensions (`simple_knn`, rasterization modules)
+
+Incorrect configurations may lead to build or runtime failures.
+
 # Deformable 3D Gaussians for High-Fidelity Monocular Dynamic Scene Reconstruction
 
 ## [Project page](https://ingra14m.github.io/Deformable-Gaussians/) | [Paper](https://arxiv.org/abs/2309.13101)
